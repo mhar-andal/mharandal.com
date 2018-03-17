@@ -15,6 +15,7 @@ module.exports = {
     },
     devServer: {
         contentBase: paths.SRC,
+        port: 9000
     },
     plugins: [
         new HtmlWebpackPlugin({
