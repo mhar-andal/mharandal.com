@@ -1,6 +1,7 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CompressionPlugin = require("compression-webpack-plugin")
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const paths = {
     DIST: path.resolve(__dirname, 'dist'), // bundle file path
@@ -17,7 +18,15 @@ let pathsToClean = [
 let cleanOptions = {
     verbose: true,
     dry: false
-}
+};
+
+let compressionOptions = {
+    asset: '[path].gz[query]',
+    algorithm: 'gzip',
+    test: /\.js$|\.css$|\.html$/,
+    threshold: 10240,
+    minRatio: 0.8,
+};
 
 module.exports = {
     entry: './src/index.js',
@@ -34,7 +43,12 @@ module.exports = {
             template: path.join(paths.PUBLIC, 'index.html'),
         }), // serves up html
         new CleanWebpackPlugin(pathsToClean, cleanOptions), // clean ./build
+        // gzip assets
+        new CompressionPlugin(compressionOptions),
     ],
+    optimization: {
+        minimize: true,
+    },
     module: {
         rules: [
             {
