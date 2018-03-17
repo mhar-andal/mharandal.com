@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const paths = {
     DIST: path.resolve(__dirname, 'dist'), // bundle file path
     SRC: path.resolve(__dirname, 'src'), // source folder path ->    
+    PUBLIC: path.resolve(__dirname, 'public'), // source folder path ->
 };
 
 // paths that should be cleaned
@@ -19,7 +20,7 @@ let cleanOptions = {
 }
 
 module.exports = {
-    entry: './index.js',
+    entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
@@ -30,7 +31,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(paths.SRC, 'index.html'),
+            template: path.join(paths.PUBLIC, 'index.html'),
         }), // serves up html
         new CleanWebpackPlugin(pathsToClean, cleanOptions), // clean ./build
     ],
