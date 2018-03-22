@@ -45,11 +45,11 @@ module.exports = {
     }), // serves up html
     new CleanWebpackPlugin(pathsToClean, cleanOptions), // clean ./build
     // gzip assets
-    new CompressionPlugin(compressionOptions),
+    // new CompressionPlugin(compressionOptions),
   ],
-  optimization: {
-    minimize: true,
-  },
+  // optimization: {
+  //   minimize: true,
+  // },
   module: {
     rules: [
       {
