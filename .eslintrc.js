@@ -8,7 +8,8 @@ module.exports = {
     'react/forbid-prop-types': 0,
     'react/require-default-props': 0,
     'import/no-unresolved': 0,
-    'import/extensions': 0
+    'import/extensions': 0,
+    'import/no-extraneous-dependencies': 0
   },
   globals: {
     window: true,
