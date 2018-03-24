@@ -1,0 +1,42 @@
+.homepage-container {
+  height: $full-height;
+  width: $full-width;
+  text-align: center;
+  overflow: hidden;
+
+  &.background-image {
+    height: 100%;
+    width: 100%;
+    background: url('images/header-full.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    @include fadein(1.5s);
+  }
+
+  &.title-box {
+    background: white;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32%;
+    height: 12%;
+
+    transform: translate(-50%, -50%);
+    @include fadein(1.2s);
+
+    .box-content {
+      height: 100%;
+      width: 100%;
+      display: grid;
+
+      grid-template-rows: 22px 12px 12px 12px;
+      grid-row-gap: 10px;
+    }
+  }
+
+  .title {
+    font-size: 22px;
+    padding-bottom: 17px;
+  }
+}

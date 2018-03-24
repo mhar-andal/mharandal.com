@@ -35,7 +35,11 @@ module.exports = {
     publicPath: '/'
   },
   resolve: {
-    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    modules: [
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'public'),
+      'node_modules'
+    ],
     extensions: ['.js', '.jsx']
   },
   devServer: {
@@ -60,31 +64,76 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(svg)$/,
+        use: [
+          {
+            loader: 'react-svg-loader'
+          },
+          {
+            loader: 'babel-loader'
+          }
+        ]
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
       },
       {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader'
-          }
-        ]
+        exclude: [
+          /\.html$/,
+          /\.(js|jsx)$/,
+          /\.css$/,
+          /\.scss$/,
+          /\.sass$/,
+          /\.json$/,
+          /\.bmp$/,
+          /\.gif$/,
+          /\.jpe?g$/,
+          /\.png$/,
+          /\.svg$/
+        ],
+        loader: 'file-loader',
+        options: {
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
+      },
+      {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
       },
       {
         test: /\.scss$/,
         use: [
           { loader: 'style-loader', options: { sourceMap: true } },
           {
+            loader: 'resolve-url-loader',
+            options: { includeRoot: paths.PUBLIC }
+          },
+          {
             loader: 'css-loader',
             options: {
               modules: false,
               importLoaders: 2,
-              sourceMap: true
+              sourceMap: true,
+              includePaths: [paths.PUBLIC]
             }
           },
-          { loader: 'sass-loader', options: { sourceMap: true } }
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              includePaths: [paths.PUBLIC]
+            }
+          }
         ]
       }
     ]

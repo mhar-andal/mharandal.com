@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
+import 'styles/styles.scss';
 import AppContainer from './AppContainer';
 import Routes from './routes';
 
