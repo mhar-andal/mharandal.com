@@ -1,11 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import './index.scss';
+import AppContainer from './AppContainer';
+import Routes from './routes';
 
 const App = () => (
   <div>
-    Hello
+    <AppContainer>
+      <Routes />
+    </AppContainer>
   </div>
 );
 
