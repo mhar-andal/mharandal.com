@@ -40,6 +40,7 @@ module.exports = {
   },
   devServer: {
     contentBase: paths.SRC,
+    historyApiFallback: true,
     port: 9000
   },
   plugins: [
