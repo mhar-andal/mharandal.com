@@ -1,5 +1,6 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -45,11 +46,16 @@ module.exports = {
     }), // serves up html
     new CleanWebpackPlugin(pathsToClean, cleanOptions), // clean ./build
     // gzip assets
-    // new CompressionPlugin(compressionOptions),
+    new CompressionPlugin(compressionOptions),
+    new CopyWebpackPlugin([
+      { from: paths.PUBLIC, to: paths.DIST },
+    ], {
+      ignore: ['index.html'],
+    }),
   ],
-  // optimization: {
-  //   minimize: true,
-  // },
+  optimization: {
+    minimize: true,
+  },
   module: {
     rules: [
       {
@@ -64,13 +70,24 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            options: {
-              name: '[path][name].[ext]',
-            },
           },
         ],
       },
-
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: 'style-loader', options: { sourceMap: true } },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: false,
+              importLoaders: 2,
+              sourceMap: true,
+            },
+          },
+          { loader: 'sass-loader', options: { sourceMap: true } },
+        ],
+      },
     ],
   },
 };
